@@ -1,0 +1,29 @@
+service: cicd
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  myhello:
+    handler: index.handler
+    events:
+     - http:
+         path: users
+         method: get
+  signData:
+    handler: signData.signData
+    events:
+     - http:
+         path: users/sign
+         method: post
+  validateToken:
+    handler: validateToken.validateToken
+    events:
+     - http:
+         path: users/validateToken
+         method: get
+plugins:
+  - serverless-offline
+  - serverless-bundle
